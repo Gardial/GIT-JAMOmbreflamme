@@ -1,1 +1,0 @@
-Si tu vois ce message, c'est que ton git et Unity a bien été paramétré, gg :) 
