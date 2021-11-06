@@ -80,7 +80,7 @@ public class Spawner : MonoBehaviour
                     
                     if(isCopycat)
                     {
-                        Instantiate(enemy, transform.GetChild(0));
+                        StartCoroutine(Copycat(enemy, transform.GetChild(0)));
                         isCopycat = false;
                     }
                 }
@@ -91,7 +91,7 @@ public class Spawner : MonoBehaviour
 
                     if (isCopycat)
                     {
-                        Instantiate(enemy, transform.GetChild(1));
+                        StartCoroutine(Copycat(enemy, transform.GetChild(1)));
                         isCopycat = false;
                     }
                 }
@@ -148,5 +148,11 @@ public class Spawner : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         startRound = true;
+    }
+
+    IEnumerator Copycat(GameObject enemy, Transform transform)
+    {
+        yield return new WaitForSeconds(0.5f);
+        GameObject.Instantiate(enemy, transform);
     }
 }
