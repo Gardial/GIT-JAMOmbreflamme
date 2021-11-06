@@ -4,30 +4,44 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private List<GameObject> lstLeftMobs; //Liste des ennemis bras gauche
-    private List<GameObject> lstRightMobs; // Liste des ennemis bras droit
+    [Header("Settings")]
+    [Range(1, 5)]
+    public float RangeAtk;
+    public int health;
 
+    public float smooth;
+
+    private List<GameObject> lstBehindEnemies; // Enemies behind
+    private List<GameObject> lstForwardEnemies; // Enemies forward
+
+    // Start is called before the first frame update
     void Start()
     {
-        lstLeftMobs = transform.GetChild(0).GetComponent<AttackArms>().lstMobs; 
-        lstRightMobs = transform.GetChild(1).GetComponent<AttackArms>().lstMobs; 
+        lstBehindEnemies = transform.GetChild(0).GetComponent<DetectEnnemies>().lstMobs;
+        lstForwardEnemies = transform.GetChild(1).GetComponent<DetectEnnemies>().lstMobs;
+
+        transform.GetChild(0).GetComponent<BoxCollider2D>().size = new Vector2(RangeAtk, 3);
+        transform.GetChild(0).GetComponent<BoxCollider2D>().offset = new Vector2(-RangeAtk/2, -1);
+
+        transform.GetChild(1).GetComponent<BoxCollider2D>().size = new Vector2(RangeAtk, 3);
+        transform.GetChild(1).GetComponent<BoxCollider2D>().offset = new Vector2(RangeAtk/2, -1);
     }
 
+    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && lstLeftMobs.Count > 0 && Input.GetKeyDown(KeyCode.RightArrow)== false)
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && lstBehindEnemies.Count > 0)
         {
-            Destroy(lstLeftMobs[0]);
-            lstLeftMobs.Remove(lstLeftMobs[0]);
+            transform.position = new Vector2(lstBehindEnemies[0].transform.position.x, transform.position.y);
+            Destroy(lstBehindEnemies[0]);
+            lstBehindEnemies.Remove(lstBehindEnemies[0]);
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow) && lstRightMobs.Count > 0 && Input.GetKeyDown(KeyCode.LeftArrow) == false)
+        if (Input.GetKeyDown(KeyCode.RightArrow) && lstForwardEnemies.Count > 0)
         {
-            Destroy(lstRightMobs[0]);
-            lstRightMobs.Remove(lstRightMobs[0]);
+            transform.position = new Vector2(lstForwardEnemies[0].transform.position.x, transform.position.y);
+            Destroy(lstForwardEnemies[0]);
+            lstForwardEnemies.Remove(lstForwardEnemies[0]);
         }
     }
-
-
 }
-

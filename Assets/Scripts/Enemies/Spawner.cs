@@ -6,22 +6,22 @@ public class Spawner : MonoBehaviour
 {
     public GameObject enemy;
 
-    [Header("Settings")]
+    private GameObject player;
+
+    [Header("Enemies")]
     public int numberOfEnemies;
+    public bool multiplier = true;
+    [Range(1, 2)]
+    public float multiplierSpawn;
 
-    [Space(10)]
-
+    [Header("Timers")]
     public bool spawnAcceleration = true;
     [Range(0.5f, 3)]
     public float timeBetTwoSpawn;
     [Range(1, 2)]
     public float timeSpawnAcceleration;
-
-    [Space(10)]
-
-    public bool multiplier = true;
-    [Range(1, 2)]
-    public float multiplierSpawn;
+    [Range(0, 1)]
+    public float variationTimeSpawn;
 
     [Header("GameManager")]
     public int round;
@@ -30,6 +30,7 @@ public class Spawner : MonoBehaviour
 
 
     private float currentTime;
+    private float tempTime;
 
     private int currentNumberEnemies;
 
@@ -42,15 +43,22 @@ public class Spawner : MonoBehaviour
         currentTime = timeBetTwoSpawn;
         startRound = true;
         round = 1;
+
+        player = GameObject.Find("Player").gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
+        transform.GetChild(0).position = new Vector3(player.transform.position.x - 10, -2, 0);
+        transform.GetChild(1).position = new Vector3(player.transform.position.x + 10, -2, 0);
+
         // Spawn amount of enemies define in GM
         if (currentNumberEnemies > 0 && startRound)
         {
-            if (currentTime >= timeBetTwoSpawn)
+            tempTime = Random.Range(timeBetTwoSpawn - variationTimeSpawn, timeBetTwoSpawn + variationTimeSpawn);
+
+            if (currentTime >= tempTime)
             {
                 int temp = Random.Range(0, 2);
 
@@ -89,8 +97,15 @@ public class Spawner : MonoBehaviour
             if(spawnAcceleration)
             {
                 timeBetTwoSpawn /= timeSpawnAcceleration;
+
+                if(timeBetTwoSpawn < 0.35f)
+                {
+                    timeBetTwoSpawn = 0.35f;
+                    spawnAcceleration = false;
+                }
             }
 
+            variationTimeSpawn /= timeSpawnAcceleration;
             currentNumberEnemies = numberOfEnemies;
 
             StartCoroutine(WaitSeconds(timeBetweenRounds));
