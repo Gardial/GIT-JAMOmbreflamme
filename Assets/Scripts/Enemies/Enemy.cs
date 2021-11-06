@@ -8,6 +8,13 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector2(transform.position.x + 0.01f, transform.position.y);
+        if(GameObject.Find("Trashbin").transform.position.x < transform.position.x)
+        {
+            transform.position = new Vector2(transform.position.x - 0.01f, transform.position.y);
+        }
+        else
+        {
+            transform.position = new Vector2(transform.position.x + 0.01f, transform.position.y);
+        }
     }
 }
