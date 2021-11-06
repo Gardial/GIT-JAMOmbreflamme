@@ -8,9 +8,6 @@ public class Spawner : MonoBehaviour
 
     [Header("Settings")]
     public int numberOfEnemies;
-    
-    [Range(0,1)]
-    public float leftOrRight;
 
     [Space(10)]
 
@@ -35,10 +32,7 @@ public class Spawner : MonoBehaviour
     private float currentTime;
 
     private int currentNumberEnemies;
-    private int EnemiesLeft;
-    private int EnemiesRight;
 
-    private bool isSwitch;
     private bool startRound;
 
     // Start is called before the first frame update
@@ -46,9 +40,6 @@ public class Spawner : MonoBehaviour
     {
         currentNumberEnemies = numberOfEnemies;
         currentTime = timeBetTwoSpawn;
-        EnemiesRight = Mathf.RoundToInt(numberOfEnemies * leftOrRight);
-        EnemiesLeft = numberOfEnemies - EnemiesRight;
-        isSwitch = false;
         startRound = true;
         round = 1;
     }
@@ -61,26 +52,16 @@ public class Spawner : MonoBehaviour
         {
             if (currentTime >= timeBetTwoSpawn)
             {
-                if(EnemiesLeft > 0 && isSwitch == false)
+                int temp = Random.Range(0, 2);
+
+                if (temp == 0)
                 {
                     Instantiate(enemy, transform.GetChild(0));
-                    EnemiesLeft -= 1;
-                    
-                    if(EnemiesRight > 0)
-                    {
-                        isSwitch = true;
-                    }
                 }
 
-                else if (EnemiesRight > 0 && isSwitch == true)
+                else if (temp == 1)
                 {
                     Instantiate(enemy, transform.GetChild(1));
-                    EnemiesRight -= 1;
-
-                    if (EnemiesLeft > 0)
-                    {
-                        isSwitch = false;
-                    }
                 }
 
                 currentTime = 0f;
@@ -111,8 +92,6 @@ public class Spawner : MonoBehaviour
             }
 
             currentNumberEnemies = numberOfEnemies;
-            EnemiesRight = Mathf.RoundToInt(numberOfEnemies * leftOrRight);
-            EnemiesLeft = numberOfEnemies - EnemiesRight;
 
             StartCoroutine(WaitSeconds(timeBetweenRounds));
         }

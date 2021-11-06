@@ -4,17 +4,39 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Settings")]
+    [Range(1, 10)]
+    public float speed;
+
+    [Range(1, 3)]
+    public int health;
+
+    [Range(1, 5)]
+    public int damage;
+
+
+    private Rigidbody2D rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if(GameObject.Find("Trashbin").transform.position.x < transform.position.x)
+        if(GameObject.Find("Player").transform.position.x < transform.position.x)
         {
-            transform.position = new Vector2(transform.position.x - 0.01f, transform.position.y);
+            rb.velocity = new Vector2(-speed, 0);
         }
         else
         {
-            transform.position = new Vector2(transform.position.x + 0.01f, transform.position.y);
+            rb.velocity = new Vector2(speed, 0);
+        }
+
+        if(health == 0)
+        {
+            Destroy(this.gameObject);
         }
     }
 }
