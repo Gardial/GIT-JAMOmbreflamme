@@ -6,9 +6,11 @@ public class PlayerController : MonoBehaviour
 {
     private List<GameObject> lstLeftMobs; //Liste des ennemis bras gauche
     private List<GameObject> lstRightMobs; // Liste des ennemis bras droit
+    public AudioSource audioSource;
 
     void Start()
     {
+        audioSource.volume = PlayerPrefs.GetFloat("Volume");
         lstLeftMobs = transform.GetChild(0).GetComponent<AttackArms>().lstMobs; 
         lstRightMobs = transform.GetChild(1).GetComponent<AttackArms>().lstMobs; 
     }
