@@ -20,7 +20,7 @@ public class Spawner : MonoBehaviour
     public float timeBetTwoSpawn;
     [Range(1, 2)]
     public float timeSpawnAcceleration;
-    [Range(0, 1)]
+    [Range(0, 2)]
     public float variationTimeSpawn;
 
     [Header("GameManager")]

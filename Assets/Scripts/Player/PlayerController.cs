@@ -9,8 +9,6 @@ public class PlayerController : MonoBehaviour
     public float RangeAtk;
     public int health;
 
-    public float smooth;
-
     private List<GameObject> lstBehindEnemies; // Enemies behind
     private List<GameObject> lstForwardEnemies; // Enemies forward
 
