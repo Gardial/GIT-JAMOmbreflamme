@@ -8,9 +8,15 @@ public class PlayerController : MonoBehaviour
     [Range(1, 5)]
     public float RangeAtk;
     public int health;
+    [Range(1, 5)]
+    public float invincibleTime;
+
+    public Material material;
 
     private List<GameObject> lstBehindEnemies; // Enemies behind
     private List<GameObject> lstForwardEnemies; // Enemies forward
+
+    private bool isInvincible;
 
     // Start is called before the first frame update
     void Start()
@@ -51,11 +57,36 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.gameObject != null)
+        if (collision.gameObject != null && !isInvincible)
         {
             health -= collision.gameObject.GetComponent<Enemy>().damage;
+            isInvincible = true;
+            StartCoroutine(BecomeTemporarilyInvincible());
         }
+    }
+
+    private IEnumerator BecomeTemporarilyInvincible()
+    {
+        isInvincible = true;
+
+        for (float i = 0; i < invincibleTime; i += 0.15f)
+        {
+            // Alternate between 0 and 1 scale to simulate flashing
+            if (material.color.r > 0)
+            {
+                material.color = Vector4.zero;
+            }
+            else
+            {
+                material.color = new Vector4(255, 0, 0, 255);
+            }
+            yield return new WaitForSeconds(0.15f);
+        }
+
+        material.color = Vector4.zero;
+        yield return new WaitForSeconds(invincibleTime);
+        isInvincible = false;
     }
 }

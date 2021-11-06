@@ -391,6 +391,10 @@ PrefabInstance:
       value: Spawner
       objectReference: {fileID: 0}
     - target: {fileID: 760837893934778151, guid: 0ba344d5f584bc1498cbc28aaa34bb51, type: 3}
+      propertyPath: round
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 760837893934778151, guid: 0ba344d5f584bc1498cbc28aaa34bb51, type: 3}
       propertyPath: multiplier
       value: 1
       objectReference: {fileID: 0}
@@ -548,9 +552,21 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1311336720966273622, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
+      propertyPath: material
+      value: 
+      objectReference: {fileID: 2100000, guid: 7c3c3418cc200154d9b76fa9f66e31d5, type: 2}
+    - target: {fileID: 1311336720966273622, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
       propertyPath: cameraFollow
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 1311336720966273622, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
+      propertyPath: invincibleTime
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1311336720966273623, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7c3c3418cc200154d9b76fa9f66e31d5, type: 2}
     - target: {fileID: 1311336720966273643, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
       propertyPath: m_Name
       value: Player

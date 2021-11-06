@@ -152,7 +152,7 @@ public class Spawner : MonoBehaviour
 
     IEnumerator Copycat(GameObject enemy, Transform transform)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         GameObject.Instantiate(enemy, transform);
     }
 }
