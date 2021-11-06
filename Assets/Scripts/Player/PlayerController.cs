@@ -28,18 +28,34 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && lstBehindEnemies.Count > 0)
+        if(health > 0)
         {
-            transform.position = new Vector2(lstBehindEnemies[0].transform.position.x, transform.position.y);
-            Destroy(lstBehindEnemies[0]);
-            lstBehindEnemies.Remove(lstBehindEnemies[0]);
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && lstBehindEnemies.Count > 0)
+            {
+                transform.position = new Vector2(lstBehindEnemies[0].transform.position.x, transform.position.y);
+                Destroy(lstBehindEnemies[0]);
+                lstBehindEnemies.Remove(lstBehindEnemies[0]);
+            }
+
+            if (Input.GetKeyDown(KeyCode.RightArrow) && lstForwardEnemies.Count > 0)
+            {
+                transform.position = new Vector2(lstForwardEnemies[0].transform.position.x, transform.position.y);
+                Destroy(lstForwardEnemies[0]);
+                lstForwardEnemies.Remove(lstForwardEnemies[0]);
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow) && lstForwardEnemies.Count > 0)
+        else
         {
-            transform.position = new Vector2(lstForwardEnemies[0].transform.position.x, transform.position.y);
-            Destroy(lstForwardEnemies[0]);
-            lstForwardEnemies.Remove(lstForwardEnemies[0]);
+            // Ta perdu dommage Game Over screen
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject != null)
+        {
+            health -= collision.gameObject.GetComponent<Enemy>().damage;
         }
     }
 }

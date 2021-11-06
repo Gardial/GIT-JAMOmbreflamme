@@ -16,7 +16,7 @@ public class CamerFollow : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         float posX = Mathf.SmoothDamp(transform.position.x, player.transform.position.x, ref velocity.x, smooth);
 
