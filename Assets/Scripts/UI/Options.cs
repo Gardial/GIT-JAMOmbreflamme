@@ -6,23 +6,37 @@ using UnityEngine.UI;
 
 public class Options : MonoBehaviour
 {
-    public GameObject Panel;
-   // private bool visible = false;
-
+    public GameObject Canvas;
     public AudioSource audioSource;
     public Slider slider;
     public Text txtVolume;
+    private bool pause = false;
 
 
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            if(Panel.activeSelf == false)
+            if(Canvas.activeSelf == false)
             {
-                Panel.SetActive(true);
+                pause = !pause;
+                if (pause)
+                {
+                    Time.timeScale = 0;
+                }
+                else
+                {
+                    Time.timeScale = 1;
+                }
+                Canvas.SetActive(true);
             }
         }
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1;
+        pause = !pause;
     }
 
     public void SliderChanger()

@@ -217,7 +217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &128943614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a2eb0349ed3bd6418a3c18495a38b8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Panel: {fileID: 1731009860}
+  Canvas: {fileID: 128943613}
   audioSource: {fileID: 334861408}
   slider: {fileID: 1913410253}
   txtVolume: {fileID: 1275650079}
@@ -493,7 +493,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1731009860}
+      - m_Target: {fileID: 128943613}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -1171,7 +1171,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1731009860}
+      - m_Target: {fileID: 128943613}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -1348,8 +1348,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -6, y: 1}
-  m_SizeDelta: {x: 675, y: 380}
+  m_AnchoredPosition: {x: -5.0833, y: 1.9993}
+  m_SizeDelta: {x: 676.8334, y: 382}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1164828740
 MonoBehaviour:
@@ -1896,7 +1896,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1731009861
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1969,7 +1969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a2eb0349ed3bd6418a3c18495a38b8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Panel: {fileID: 128943613}
+  Canvas: {fileID: 0}
   audioSource: {fileID: 0}
   slider: {fileID: 0}
   txtVolume: {fileID: 0}
