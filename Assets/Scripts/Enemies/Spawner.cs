@@ -16,7 +16,7 @@ public class Spawner : MonoBehaviour
 
     [Header("Timers")]
     public bool spawnAcceleration = true;
-    [Range(0.5f, 3)]
+    [Range(0.5f, 5)]
     public float timeBetTwoSpawn;
     [Range(1, 2)]
     public float timeSpawnAcceleration;
@@ -35,6 +35,8 @@ public class Spawner : MonoBehaviour
     private int currentNumberEnemies;
 
     private bool startRound;
+
+    private bool isCopycat;
 
     // Start is called before the first frame update
     void Start()
@@ -60,16 +62,38 @@ public class Spawner : MonoBehaviour
 
             if (currentTime >= tempTime)
             {
+                if (round >= 4)
+                {
+                    int copycat = Random.Range(0, Mathf.RoundToInt(round * 1.7f));
+
+                    if (copycat == 1)
+                    {
+                        isCopycat = true;
+                    }
+                }
+
                 int temp = Random.Range(0, 2);
 
                 if (temp == 0)
                 {
                     Instantiate(enemy, transform.GetChild(0));
+                    
+                    if(isCopycat)
+                    {
+                        Instantiate(enemy, transform.GetChild(0));
+                        isCopycat = false;
+                    }
                 }
 
                 else if (temp == 1)
                 {
                     Instantiate(enemy, transform.GetChild(1));
+
+                    if (isCopycat)
+                    {
+                        Instantiate(enemy, transform.GetChild(1));
+                        isCopycat = false;
+                    }
                 }
 
                 currentTime = 0f;
@@ -98,14 +122,22 @@ public class Spawner : MonoBehaviour
             {
                 timeBetTwoSpawn /= timeSpawnAcceleration;
 
-                if(timeBetTwoSpawn < 0.35f)
+                if(timeBetTwoSpawn <= 0.55f)
                 {
-                    timeBetTwoSpawn = 0.35f;
+                    timeBetTwoSpawn = 0.55f;
                     spawnAcceleration = false;
                 }
             }
 
-            variationTimeSpawn /= timeSpawnAcceleration;
+            if(variationTimeSpawn <= 0.25f)
+            {
+                variationTimeSpawn = 0.25f;
+            }
+            else
+            {
+                variationTimeSpawn /= timeSpawnAcceleration;
+            }
+
             currentNumberEnemies = numberOfEnemies;
 
             StartCoroutine(WaitSeconds(timeBetweenRounds));
