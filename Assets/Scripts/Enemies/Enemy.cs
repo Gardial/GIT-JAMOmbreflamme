@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
             rb.velocity = new Vector2(speed, 0);
         }
 
-        if(health == 0)
+        if(health <= 0)
         {
             Destroy(this.gameObject);
         }

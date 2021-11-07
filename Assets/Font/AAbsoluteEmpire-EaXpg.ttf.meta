@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 75d68f58ba5f456488339774cd6c926b
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - a Absolute Empire
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 10842c53420a2094da6a08fe8e926fda, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
