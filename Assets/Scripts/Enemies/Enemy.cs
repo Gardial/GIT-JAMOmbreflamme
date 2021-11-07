@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        Physics2D.IgnoreLayerCollision(3, 3);
     }
 
     // Update is called once per frame
@@ -34,7 +35,7 @@ public class Enemy : MonoBehaviour
             rb.velocity = new Vector2(speed, 0);
         }
 
-        if(health == 0)
+        if(health <= 0)
         {
             Destroy(this.gameObject);
         }

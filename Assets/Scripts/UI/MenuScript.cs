@@ -10,14 +10,14 @@ public class MenuScript : MonoBehaviour
     public AudioSource audioSource;
 
      void Start()
-    {
+     {
         audioSource.volume = PlayerPrefs.GetFloat("Volume");
-    }
+     }
 
     public void Play()
     {
         PlayerPrefs.SetFloat("Volume", audioSource.volume);
-        SceneManager.LoadScene("Level 1");  
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void Exit()

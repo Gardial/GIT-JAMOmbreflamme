@@ -6,22 +6,22 @@ public class Spawner : MonoBehaviour
 {
     public GameObject enemy;
 
-    [Header("Settings")]
+    private GameObject player;
+
+    [Header("Enemies")]
     public int numberOfEnemies;
-
-    [Space(10)]
-
-    public bool spawnAcceleration = true;
-    [Range(0.5f, 3)]
-    public float timeBetTwoSpawn;
-    [Range(1, 2)]
-    public float timeSpawnAcceleration;
-
-    [Space(10)]
-
     public bool multiplier = true;
     [Range(1, 2)]
     public float multiplierSpawn;
+
+    [Header("Timers")]
+    public bool spawnAcceleration = true;
+    [Range(0.5f, 5)]
+    public float timeBetTwoSpawn;
+    [Range(1, 2)]
+    public float timeSpawnAcceleration;
+    [Range(0, 2)]
+    public float variationTimeSpawn;
 
     [Header("GameManager")]
     public int round;
@@ -30,10 +30,13 @@ public class Spawner : MonoBehaviour
 
 
     private float currentTime;
+    private float tempTime;
 
     private int currentNumberEnemies;
 
     private bool startRound;
+
+    private bool isCopycat;
 
     // Start is called before the first frame update
     void Start()
@@ -42,26 +45,55 @@ public class Spawner : MonoBehaviour
         currentTime = timeBetTwoSpawn;
         startRound = true;
         round = 1;
+
+        player = GameObject.Find("Player").gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
+        transform.GetChild(0).position = new Vector3(player.transform.position.x - 10, -2, 0);
+        transform.GetChild(1).position = new Vector3(player.transform.position.x + 10, -2, 0);
+
         // Spawn amount of enemies define in GM
         if (currentNumberEnemies > 0 && startRound)
         {
-            if (currentTime >= timeBetTwoSpawn)
+            tempTime = Random.Range(timeBetTwoSpawn - variationTimeSpawn, timeBetTwoSpawn + variationTimeSpawn);
+
+            if (currentTime >= tempTime)
             {
+                if (round >= 4)
+                {
+                    int copycat = Random.Range(0, Mathf.RoundToInt(round * 1.7f));
+
+                    if (copycat == 1)
+                    {
+                        isCopycat = true;
+                    }
+                }
+
                 int temp = Random.Range(0, 2);
 
                 if (temp == 0)
                 {
                     Instantiate(enemy, transform.GetChild(0));
+                    
+                    if(isCopycat)
+                    {
+                        StartCoroutine(Copycat(enemy, transform.GetChild(0)));
+                        isCopycat = false;
+                    }
                 }
 
                 else if (temp == 1)
                 {
                     Instantiate(enemy, transform.GetChild(1));
+
+                    if (isCopycat)
+                    {
+                        StartCoroutine(Copycat(enemy, transform.GetChild(1)));
+                        isCopycat = false;
+                    }
                 }
 
                 currentTime = 0f;
@@ -89,6 +121,21 @@ public class Spawner : MonoBehaviour
             if(spawnAcceleration)
             {
                 timeBetTwoSpawn /= timeSpawnAcceleration;
+
+                if(timeBetTwoSpawn <= 0.55f)
+                {
+                    timeBetTwoSpawn = 0.55f;
+                    spawnAcceleration = false;
+                }
+            }
+
+            if(variationTimeSpawn <= 0.25f)
+            {
+                variationTimeSpawn = 0.25f;
+            }
+            else
+            {
+                variationTimeSpawn /= timeSpawnAcceleration;
             }
 
             currentNumberEnemies = numberOfEnemies;
@@ -101,5 +148,11 @@ public class Spawner : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         startRound = true;
+    }
+
+    IEnumerator Copycat(GameObject enemy, Transform transform)
+    {
+        yield return new WaitForSeconds(0.25f);
+        GameObject.Instantiate(enemy, transform);
     }
 }
