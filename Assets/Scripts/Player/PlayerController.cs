@@ -20,11 +20,10 @@ public class PlayerController : MonoBehaviour
 
     private bool isInvincible;
 
-    private Vector2 targetPosition;
-    private GameObject target;
-
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+
+    private float lastTime;
 
     // Start is called before the first frame update
     void Start()
@@ -32,11 +31,11 @@ public class PlayerController : MonoBehaviour
         lstBehindEnemies = transform.GetChild(0).GetComponent<DetectEnnemies>().lstMobs;
         lstForwardEnemies = transform.GetChild(1).GetComponent<DetectEnnemies>().lstMobs;
 
-        transform.GetChild(0).GetComponent<BoxCollider2D>().size = new Vector2(RangeAtk, 3);
-        transform.GetChild(0).GetComponent<BoxCollider2D>().offset = new Vector2(-RangeAtk/2, -1);
+        transform.GetChild(0).GetComponent<BoxCollider2D>().size = new Vector2(RangeAtk, 5);
+        transform.GetChild(0).GetComponent<BoxCollider2D>().offset = new Vector2(-RangeAtk/2, 0);
 
-        transform.GetChild(1).GetComponent<BoxCollider2D>().size = new Vector2(RangeAtk, 3);
-        transform.GetChild(1).GetComponent<BoxCollider2D>().offset = new Vector2(RangeAtk/2, -1);
+        transform.GetChild(1).GetComponent<BoxCollider2D>().size = new Vector2(RangeAtk, 5);
+        transform.GetChild(1).GetComponent<BoxCollider2D>().offset = new Vector2(RangeAtk/2, 0);
 
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -47,38 +46,34 @@ public class PlayerController : MonoBehaviour
     {
         if(health > 0)
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow) && lstBehindEnemies.Count > 0)
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && Time.time != lastTime)
             {
-                targetPosition = new Vector2(lstBehindEnemies[0].transform.position.x, transform.position.y);
-                target = lstBehindEnemies[0];
+                lastTime = Time.time;
                 spriteRenderer.flipX = true;
                 animator.SetTrigger("Attack");
-                lstBehindEnemies.Remove(lstBehindEnemies[0]);
             }
 
-            if (Input.GetKeyDown(KeyCode.RightArrow) && lstForwardEnemies.Count > 0)
+            if (Input.GetKeyDown(KeyCode.RightArrow) && Time.time != lastTime)
             {
-                targetPosition = new Vector2(lstForwardEnemies[0].transform.position.x, transform.position.y);
-                target = lstForwardEnemies[0];
+                lastTime = Time.time;
                 spriteRenderer.flipX = false;
                 animator.SetTrigger("Attack");
-                lstForwardEnemies.Remove(lstForwardEnemies[0]);
             }
-        }
 
+            if (lstBehindEnemies.Count > 0 && lstBehindEnemies[0] == null)
+            {
+                lstBehindEnemies.RemoveAt(0);
+            }
+
+            if (lstForwardEnemies.Count > 0 && lstForwardEnemies[0] == null)
+            {
+                lstForwardEnemies.RemoveAt(0);
+            }
+
+        }
         else
         {
             gameOver.SetActive(true);
-        }
-
-        if(lstBehindEnemies.Count > 0 && lstBehindEnemies[0] == null)
-        {
-            lstBehindEnemies.RemoveAt(0);
-        }
-
-        if (lstForwardEnemies.Count > 0 && lstForwardEnemies[0] == null)
-        {
-            lstForwardEnemies.RemoveAt(0);
         }
     }
 
@@ -117,14 +112,51 @@ public class PlayerController : MonoBehaviour
 
     public void TeleportPlayer()
     {
-        transform.position = targetPosition;
+        if(spriteRenderer.flipX == true)
+        {
+            if(lstBehindEnemies.Count > 0 && lstBehindEnemies[0] != null)
+            {
+                transform.position = new Vector2(lstBehindEnemies[0].transform.position.x + 1f, transform.position.y);
+            }
+
+        }
+        else
+        {
+            if (lstForwardEnemies.Count > 0 && lstForwardEnemies[0] != null)
+            {
+                transform.position = new Vector2(lstForwardEnemies[0].transform.position.x + 1f, transform.position.y);
+            }
+        }
     }
 
     public void DealDamage()
     {
-        if(target.GetComponent<Enemy>() != null)
+        if (spriteRenderer.flipX == true)
         {
-            target.GetComponent<Enemy>().health -= damage;
+            if (lstBehindEnemies.Count > 0 && lstBehindEnemies[0] != null)
+            {
+                lstBehindEnemies[0].gameObject.GetComponent<Enemy>().health -= damage;
+            }
+
+        }
+        else
+        {
+            if (lstForwardEnemies.Count > 0 && lstForwardEnemies[0] != null)
+            {
+                lstForwardEnemies[0].gameObject.GetComponent<Enemy>().health -= damage;
+            }
+        }
+    }
+
+    public void DeleteInList(GameObject enemy)
+    {
+        if (transform.position.x > enemy.transform.position.x)
+        {
+            lstBehindEnemies.RemoveAt(0);
+        }
+        else if (transform.position.x < enemy.transform.position.x)
+        {
+            lstForwardEnemies.RemoveAt(0);
         }
     }
 }
