@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject gameOver;
 
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +44,8 @@ public class PlayerController : MonoBehaviour
 
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -153,5 +157,11 @@ public class PlayerController : MonoBehaviour
     public void GameOver()
     {
         gameObject.SetActive(true);
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 }

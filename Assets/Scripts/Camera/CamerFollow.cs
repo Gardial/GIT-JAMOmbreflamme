@@ -4,30 +4,10 @@ using UnityEngine;
 
 public class CamerFollow : MonoBehaviour
 {
-    private float length, startpos;
     public GameObject player;
     public float smooth;
-    public float parallaxEffect;
 
     private Vector2 velocity;
-
-    private void Start()
-    {
-        //startpos = transform.position.x;
-        //if (!GameObject.Find("Main Camera"))
-        //{
-        //    length = GetComponent<SpriteRenderer>().bounds.size.x;
-        //}
-    }
-
-    private void Update()
-    {
-        //float temp = (transform.position.x * (1 - parallaxEffect));
-        //float dist = (transform.position.x * parallaxEffect);
-
-        //if (temp > startpos + length) startpos += length;
-        //else if (temp < startpos - length) startpos -= length;
-    }
 
     void LateUpdate()
     {
