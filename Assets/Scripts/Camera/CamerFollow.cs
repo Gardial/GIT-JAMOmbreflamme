@@ -13,7 +13,6 @@ public class CamerFollow : MonoBehaviour
     void LateUpdate()
     {
         float posX = Mathf.SmoothDamp(transform.position.x, player.transform.position.x, ref velocity.x, smooth);
-
         transform.position = new Vector3(posX, transform.position.y, transform.position.z);
     }
 }
