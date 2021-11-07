@@ -50,7 +50,6 @@ public class Options : MonoBehaviour
     public void SliderChanger()
     {
         audioSource.volume = slider.value;
-        txtVolume.text = "Volume : " + (audioSource.volume * 100).ToString("00") + "%";
         PlayerPrefs.SetFloat("Volume", slider.value);
     }
 }
