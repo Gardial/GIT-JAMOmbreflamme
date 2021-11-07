@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
 
     private AudioSource audioSource;
 
+    public GameObject hearts;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -92,6 +94,10 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject != null && !isInvincible)
         {
             health -= collision.gameObject.GetComponent<Enemy>().damage;
+            if(health >= 0)
+            {
+                GameObject.Destroy(hearts.transform.GetChild(health).gameObject);
+            }
             isInvincible = true;
             animator.SetTrigger("TakeHit");
             StartCoroutine(WaitSeconds());
