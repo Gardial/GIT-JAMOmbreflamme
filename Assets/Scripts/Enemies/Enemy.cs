@@ -22,6 +22,8 @@ public class Enemy : MonoBehaviour
 
     private bool continueUpdate;
 
+    private SpriteRenderer spriteRenderer;
+
     private void Start()
     {
         Physics2D.IgnoreLayerCollision(3, 3);
@@ -30,6 +32,13 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         continueUpdate = true;
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if(transform.position.x < playerController.gameObject.transform.position.x)
+        {
+            spriteRenderer.flipX = true;
+        }
     }
 
     // Update is called once per frame

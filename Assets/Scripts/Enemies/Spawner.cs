@@ -52,8 +52,8 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.GetChild(0).position = new Vector3(player.transform.position.x - 10, -2, 0);
-        transform.GetChild(1).position = new Vector3(player.transform.position.x + 10, -2, 0);
+        transform.GetChild(0).position = new Vector3(player.transform.position.x - 10, -3, 0);
+        transform.GetChild(1).position = new Vector3(player.transform.position.x + 10, -3, 0);
 
         // Spawn amount of enemies define in GM
         if (currentNumberEnemies > 0 && startRound)
@@ -122,9 +122,9 @@ public class Spawner : MonoBehaviour
             {
                 timeBetTwoSpawn /= timeSpawnAcceleration;
 
-                if(timeBetTwoSpawn <= 0.55f)
+                if(timeBetTwoSpawn <= 0.65f)
                 {
-                    timeBetTwoSpawn = 0.55f;
+                    timeBetTwoSpawn = 0.65f;
                     spawnAcceleration = false;
                 }
             }
