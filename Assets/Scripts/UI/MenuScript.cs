@@ -14,7 +14,6 @@ public class MenuScript : MonoBehaviour
         audioSource.volume = PlayerPrefs.GetFloat("Volume");
     }
 
-
     public void Play()
     {
         PlayerPrefs.SetFloat("Volume", audioSource.volume);
