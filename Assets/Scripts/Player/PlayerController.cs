@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Settings")]
-    [Range(1, 10)]
+    [Range(1, 20)]
     public float RangeAtk;
     public int health;
     public int damage;
@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
         {
             if (lstForwardEnemies.Count > 0 && lstForwardEnemies[0] != null)
             {
-                transform.position = new Vector2(lstForwardEnemies[0].transform.position.x + 1f, transform.position.y);
+                transform.position = new Vector2(lstForwardEnemies[0].transform.position.x - 1f, transform.position.y);
             }
         }
     }
