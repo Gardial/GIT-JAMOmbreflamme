@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Options : MonoBehaviour
 {
     public GameObject Canvas;
-    public AudioSource audioSource;
+    private AudioSource audioSource;
     public Slider slider;
     public Text txtVolume;
     private bool pause = false;
@@ -15,6 +15,7 @@ public class Options : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         SliderChanger();
     }
 
@@ -34,6 +35,7 @@ public class Options : MonoBehaviour
                     Time.timeScale = 1;
                 }
                 Canvas.SetActive(true);
+                audioSource.Play();
             }
         }
     }
@@ -42,12 +44,12 @@ public class Options : MonoBehaviour
     {
         Time.timeScale = 1;
         pause = !pause;
+        audioSource.Play();
     }
 
     public void SliderChanger()
     {
         audioSource.volume = slider.value;
-        txtVolume.text = "Volume : " + (audioSource.volume * 100).ToString("00") + "%";
         PlayerPrefs.SetFloat("Volume", slider.value);
     }
 }
