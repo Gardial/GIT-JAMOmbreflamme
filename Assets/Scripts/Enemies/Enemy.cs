@@ -14,13 +14,16 @@ public class Enemy : MonoBehaviour
     [Range(1, 5)]
     public int damage;
 
-
     private Rigidbody2D rb;
+
+    private PlayerController playerController;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         Physics2D.IgnoreLayerCollision(3, 3);
+
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -37,6 +40,7 @@ public class Enemy : MonoBehaviour
 
         if(health <= 0)
         {
+            playerController.DeleteInList(gameObject);
             Destroy(this.gameObject);
         }
     }

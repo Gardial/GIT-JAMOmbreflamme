@@ -505,7 +505,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5138503487535233278, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
       propertyPath: RangeAtk
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5138503487535233278, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
       propertyPath: gameOver
