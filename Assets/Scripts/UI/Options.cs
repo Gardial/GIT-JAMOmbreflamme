@@ -13,6 +13,11 @@ public class Options : MonoBehaviour
     private bool pause = false;
 
 
+    private void Start()
+    {
+        SliderChanger();
+    }
+
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -44,8 +49,5 @@ public class Options : MonoBehaviour
         audioSource.volume = slider.value;
         txtVolume.text = "Volume : " + (audioSource.volume * 100).ToString("00") + "%";
         PlayerPrefs.SetFloat("Volume", slider.value);
-
     }
-
- 
 }
