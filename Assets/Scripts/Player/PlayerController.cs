@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public float invincibleTime;
 
     public Material material;
+    public GameObject gameOver;
 
     private List<GameObject> lstBehindEnemies; // Enemies behind
     private List<GameObject> lstForwardEnemies; // Enemies forward
@@ -53,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
         else
         {
-            // Ta perdu dommage Game Over screen
+            gameOver.SetActive(true);
         }
     }
 
