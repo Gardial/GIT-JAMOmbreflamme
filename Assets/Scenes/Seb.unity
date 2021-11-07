@@ -404,7 +404,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 760837893934778151, guid: 0ba344d5f584bc1498cbc28aaa34bb51, type: 3}
       propertyPath: numberOfEnemies
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 760837893934778151, guid: 0ba344d5f584bc1498cbc28aaa34bb51, type: 3}
       propertyPath: timeBetTwoSpawn
@@ -495,6 +495,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5138503487535233249, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5138503487535233250, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5138503487535233250, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5138503487535233250, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5138503487535233250, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5138503487535233250, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5138503487535233250, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5138503487535233250, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5138503487535233250, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
+      propertyPath: m_MaskInteraction
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5138503487535233253, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
       propertyPath: m_Name
       value: Player
@@ -505,7 +541,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5138503487535233278, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
       propertyPath: health
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5138503487535233278, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
       propertyPath: RangeAtk
@@ -515,5 +551,25 @@ PrefabInstance:
       propertyPath: gameOver
       value: 
       objectReference: {fileID: 359297349}
+    - target: {fileID: 5138503487535233278, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
+      propertyPath: colorBlink.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5138503487535233278, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
+      propertyPath: colorBlink.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5138503487535233278, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
+      propertyPath: colorBlink.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5138503487535233278, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
+      propertyPath: colorBlink.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5138503487535233278, guid: 8ffccbfc53b4c564391df23602709575, type: 3}
+      propertyPath: distanceFromEnemy
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ffccbfc53b4c564391df23602709575, type: 3}

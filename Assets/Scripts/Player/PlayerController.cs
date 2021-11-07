@@ -9,11 +9,10 @@ public class PlayerController : MonoBehaviour
     public float RangeAtk;
     public int health;
     public int damage;
+    [Range(0, 5)]
+    public float distanceFromEnemy;
     [Range(1, 5)]
     public float invincibleTime;
-
-    public Material material;
-    public GameObject gameOver;
 
     private List<GameObject> lstBehindEnemies; // Enemies behind
     private List<GameObject> lstForwardEnemies; // Enemies forward
@@ -24,6 +23,10 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     private float lastTime;
+
+    private bool continueUpdate = true;
+
+    public GameObject gameOver;
 
     // Start is called before the first frame update
     void Start()
@@ -70,10 +73,13 @@ public class PlayerController : MonoBehaviour
                 lstForwardEnemies.RemoveAt(0);
             }
 
+            spriteRenderer.color = Color.black;
+
         }
-        else
+        else if(continueUpdate)
         {
-            gameOver.SetActive(true);
+            animator.SetTrigger("Death");
+            continueUpdate = false;
         }
     }
 
@@ -83,31 +89,9 @@ public class PlayerController : MonoBehaviour
         {
             health -= collision.gameObject.GetComponent<Enemy>().damage;
             isInvincible = true;
-            //StartCoroutine(BecomeTemporarilyInvincible());
+            animator.SetTrigger("TakeHit");
+            StartCoroutine(WaitSeconds());
         }
-    }
-
-    private IEnumerator BecomeTemporarilyInvincible()
-    {
-        isInvincible = true;
-
-        for (float i = 0; i < invincibleTime; i += 0.15f)
-        {
-            // Alternate between 0 and 1 scale to simulate flashing
-            if (material.color.r > 0)
-            {
-                material.color = Vector4.zero;
-            }
-            else
-            {
-                material.color = new Vector4(255, 0, 0, 255);
-            }
-            yield return new WaitForSeconds(0.15f);
-        }
-
-        material.color = Vector4.zero;
-        yield return new WaitForSeconds(invincibleTime);
-        isInvincible = false;
     }
 
     public void TeleportPlayer()
@@ -116,7 +100,7 @@ public class PlayerController : MonoBehaviour
         {
             if(lstBehindEnemies.Count > 0 && lstBehindEnemies[0] != null)
             {
-                transform.position = new Vector2(lstBehindEnemies[0].transform.position.x + 1f, transform.position.y);
+                transform.position = new Vector2(lstBehindEnemies[0].transform.position.x + distanceFromEnemy, transform.position.y);
             }
 
         }
@@ -124,7 +108,7 @@ public class PlayerController : MonoBehaviour
         {
             if (lstForwardEnemies.Count > 0 && lstForwardEnemies[0] != null)
             {
-                transform.position = new Vector2(lstForwardEnemies[0].transform.position.x - 1f, transform.position.y);
+                transform.position = new Vector2(lstForwardEnemies[0].transform.position.x - distanceFromEnemy, transform.position.y);
             }
         }
     }
@@ -158,5 +142,16 @@ public class PlayerController : MonoBehaviour
         {
             lstForwardEnemies.RemoveAt(0);
         }
+    }
+
+    IEnumerator WaitSeconds()
+    {
+        yield return new WaitForSeconds(invincibleTime);
+        isInvincible = false;
+    }
+
+    public void GameOver()
+    {
+        gameObject.SetActive(true);
     }
 }

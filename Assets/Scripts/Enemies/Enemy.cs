@@ -24,25 +24,31 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         Physics2D.IgnoreLayerCollision(3, 3);
 
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
-
+        rb = GetComponent<Rigidbody2D>();
         continueUpdate = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(GameObject.Find("Player").transform.position.x < transform.position.x)
+        if(health > 0)
         {
-            rb.velocity = new Vector2(-speed, 0);
+            if(GameObject.Find("Player").transform.position.x < transform.position.x)
+            {
+                rb.velocity = new Vector2(-speed, 0);
+            }
+            else
+            {
+                rb.velocity = new Vector2(speed, 0);
+            }
         }
         else
         {
-            rb.velocity = new Vector2(speed, 0);
+            rb.velocity = Vector2.zero;
         }
 
         if(health <= 0 && continueUpdate)
